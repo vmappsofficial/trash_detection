@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -29,7 +31,7 @@ class _Login_pageState extends State<Login_page> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: const Color(0xFF0C0C0C),
+      backgroundColor: const Color(0xFFE9FAF6),
       body:Center(
         child:
         Column(
@@ -51,12 +53,12 @@ class _Login_pageState extends State<Login_page> {
                   children: [
                     TextField(
                       controller:_email1,
-                      style:const TextStyle(color: Colors.white),
+                      style:const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor:const Color(0xFF1E1E1E),
+                        fillColor:const Color(0xFFA3BFBF),
                         hintText:'Email',
-                        hintStyle: const TextStyle(color: Colors.grey),
+                        hintStyle: const TextStyle(color: Colors.black),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none
@@ -66,12 +68,12 @@ class _Login_pageState extends State<Login_page> {
                     SizedBox(height:20,),
                     TextField(
                       controller: _password1,
-                      style:const TextStyle(color: Colors.white),
+                      style:const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                           filled: true,
-                          fillColor:const Color(0xFF1E1E1E),
+                          fillColor:const Color(0xFFA3BFBF),
                           hintText:'Password',
-                          hintStyle: const TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.black),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none
@@ -99,11 +101,11 @@ class _Login_pageState extends State<Login_page> {
 
                         }
                       },style:ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF29B6F6),
+                        backgroundColor:Colors.blue,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)
                         )
-                      ),child:Text('Log in',style:TextStyle(color: Colors.black,fontSize:18,fontWeight:FontWeight.bold),)),
+                      ),child:Text('Log in',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
                     ),
                     SizedBox(height:13,),
                     Align(
@@ -136,7 +138,7 @@ class Screen1 extends StatelessWidget{
   Widget build(BuildContext context){
     return Scaffold(
 
-      backgroundColor: const Color(0xFF0C0C0C),
+      backgroundColor: const Color(0xFFE9FAF6),
       body:
           SafeArea(child:
       Center(
@@ -154,16 +156,16 @@ class Screen1 extends StatelessWidget{
               Align(
                 alignment: Alignment.center,
                 child:
-               Text("Reset Password",style:TextStyle(fontSize:18,color: Colors.white,fontWeight:FontWeight.bold),)
+               Text("Reset Password",style:TextStyle(fontSize:18,color: Colors.black,fontWeight:FontWeight.bold),)
               ),
               SizedBox(height:20,),
               TextField(
-                style:const TextStyle(color: Colors.white),
+                style:const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                     filled: true,
-                    fillColor:const Color(0xFF1E1E1E),
+                    fillColor:const Color(0xFFA3BFBF),
                     hintText:'Enter your Email',
-                    hintStyle: const TextStyle(color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.black),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none
@@ -180,11 +182,11 @@ class Screen1 extends StatelessWidget{
                     return Login_page();
                   }));
                 },style:ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF29B6F6),
+                    backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)
                     )
-                ),child:Text('Submit',style:TextStyle(color: Colors.black,fontSize:18,fontWeight:FontWeight.bold),)),
+                ),child:Text('Submit',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
               ),
 
             ],
@@ -200,7 +202,7 @@ class Register extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: const Color(0xFF0C0C0C),
+      backgroundColor: const Color(0xFFE9FAF6),
       body:
       SafeArea(child:
       Center(
@@ -218,16 +220,16 @@ class Register extends StatelessWidget{
               Align(
                   alignment: Alignment.center,
                   child:
-                  Text("Register",style:TextStyle(fontSize:18,color: Colors.white,fontWeight:FontWeight.bold),)
+                  Text("Register",style:TextStyle(fontSize:18,color: Colors.black,fontWeight:FontWeight.bold),)
               ),
               SizedBox(height:20,),
               TextField(
-                style:const TextStyle(color: Colors.white),
+                style:const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor:const Color(0xFF1E1E1E),
+                  fillColor:const Color(0xFFA3BFBF),
                   hintText:'Enter your Email',
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.black),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none
@@ -240,12 +242,12 @@ class Register extends StatelessWidget{
 
               SizedBox(height:30,),
               TextField(
-                style:const TextStyle(color: Colors.white),
+                style:const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor:const Color(0xFF1E1E1E),
+                  fillColor:const Color(0xFFA3BFBF),
                   hintText:'Enter Password',
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.black),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none
@@ -260,9 +262,9 @@ class Register extends StatelessWidget{
                 style:const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor:const Color(0xFF1E1E1E),
+                  fillColor:const Color(0xFFA3BFBF),
                   hintText:'Re Enter Password',
-                  hintStyle: const TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.black),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none
@@ -280,11 +282,11 @@ class Register extends StatelessWidget{
                     return Login_page();
                   }));
                 },style:ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF29B6F6),
+                    backgroundColor:Colors.blue,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)
                     )
-                ),child:Text('Submit',style:TextStyle(color: Colors.black,fontSize:18,fontWeight:FontWeight.bold),)),
+                ),child:Text('Submit',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
               ),
 
             ],
@@ -317,11 +319,9 @@ class _Home_ScreenState extends State<Home_Screen> {
   Widget build(BuildContext context){
     return Scaffold(
 
-      backgroundColor: const Color(0xFF0C0C0C),
+      backgroundColor: const Color(0xFFE9FAF6),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:Color(0xFF0C0C0C),
-
-          unselectedItemColor: Colors.white,
+        backgroundColor:Color(0xFFE9FAF6),
           selectedItemColor:Colors.lightBlueAccent,
           currentIndex: n2,
           onTap: (n1){
@@ -331,9 +331,9 @@ class _Home_ScreenState extends State<Home_Screen> {
 
           },
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home,color:Colors.white,),label: "Home",),
-            BottomNavigationBarItem(icon: Icon(Icons.add,color:Colors.white),label: "Upload file"),
-            BottomNavigationBarItem(icon: Icon(Icons.file_open_outlined,color:Colors.white),label: "Reports"),
+            BottomNavigationBarItem(icon: Icon(Icons.home,),label: "Home",),
+            BottomNavigationBarItem(icon: Icon(Icons.add,),label: "Upload file"),
+            BottomNavigationBarItem(icon: Icon(Icons.file_open_outlined),label: "Reports"),
 
           ]),
       body:_pages[n2],
@@ -344,62 +344,80 @@ class Screen2 extends StatelessWidget{
   const Screen2({super.key});
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-        IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+    return 
+      Scaffold(
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Account_Screen();
           }));
-        }, icon:Icon(Icons.account_circle,color:Colors.white,))
+        }, icon:Icon(Icons.account_circle))
       ],leading:  IconButton(onPressed: (){
 
-      }, icon:Icon(Icons.search,color:Colors.white,)),),
-      backgroundColor: const Color(0xFF0C0C0C),
+      }, icon:Icon(Icons.search,)),),
+      backgroundColor: const Color(0xFFE9FAF6),
       body:
       SafeArea(child:
-      Column(
-        children: [
-          Container(
-            width:double.infinity,
-            height:300,
-            decoration:
-            BoxDecoration(
-              image:DecorationImage(image:
-              AssetImage('Sea_image3.jpg'),
-              )
-            ),
-          ),
-          Align(
-            alignment:Alignment.center,
-            child:
-            Column(
-              children: [
-                Text("Detect Trash Save",style:TextStyle(color:Colors.white,fontSize:18,fontWeight:FontWeight.bold),),
-                Text("Oceans",style:TextStyle(color:Colors.white,fontSize:18,fontWeight:FontWeight.bold),),
-                SizedBox(height:13,),
-                Text("Upload or capture underwater images ",style:TextStyle(color:Colors.white),),
-                Text(" to identify pollutions",style:TextStyle(color:Colors.white),)
-              ],
-            ),
-          ),
-          SizedBox(height:13,),
-          SizedBox(
-            width:double.infinity,
-            child: ElevatedButton(onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
-                return UploadScreen();
-              }));
-            },style:ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF29B6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width:double.infinity,
+              height:300,
+              decoration:
+              BoxDecoration(
+                image:DecorationImage(image:
+                AssetImage('Sea_image3.jpg'),
                 )
-            ),child:Text('Upload Image',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
-          ),
-          
-          
-        ],
+              ),
+            ),
+            Align(
+              alignment:Alignment.center,
+              child:
+              Column(
+                children: [
+                  Text("Detect Trash Save",style:TextStyle(color:Colors.black,fontSize:18,fontWeight:FontWeight.bold),),
+                  Text("Oceans",style:TextStyle(color:Colors.black,fontSize:18,fontWeight:FontWeight.bold),),
+                  SizedBox(height:13,),
+                  Text("Upload or capture underwater images ",style:TextStyle(color:Colors.black),),
+                  Text(" to identify pollutions",style:TextStyle(color:Colors.black),)
+                ],
+              ),
+            ),
+            SizedBox(height:13,),
+            SizedBox(
+              width:double.infinity,
+              child: ElevatedButton(onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
+                  return UploadScreen();
+                }));
+              },style:ElevatedButton.styleFrom(
+                  backgroundColor:Colors.blue,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)
+                  )
+              ),child:Text('Upload Image',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
+            ),
+            SizedBox(height:30,),
+            Align(
+              alignment:Alignment.topLeft,
+              child:
+              Text('Recent Scans',style:TextStyle(fontSize:18,color:Colors.black,fontWeight:FontWeight.bold),)
+              ,
+            ),
+            SizedBox(height:13,),
+            Align(
+                alignment:Alignment.topLeft,
+                child: Image.asset("plastic_image1.jpg",height:200)),
+            
+            
+          ],
+        ),
       )
       ),
     );
@@ -410,39 +428,106 @@ class Report_Screen extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-        IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Account_Screen();
           }));
-        }, icon:Icon(Icons.account_circle,color:Colors.white,))
+        }, icon:Icon(Icons.account_circle))
       ],leading:  IconButton(onPressed: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-          return Home_Screen();
-        }));
-      }, icon:Icon(Icons.arrow_back,color:Colors.white,)),),
-      backgroundColor: const Color(0xFF0C0C0C),);
+
+      }, icon:Icon(Icons.search,)),),
+      backgroundColor: const Color(0xFFE9FAF6),
+      body: SafeArea(child:
+          Container(
+            color: Color(0xFF456885),
+              height:150,
+              width:double.infinity,
+
+              child:
+      Padding(
+        padding: const EdgeInsets.all(12),
+        child:Column(
+          children: [
+            SingleChildScrollView(
+              scrollDirection:Axis.horizontal,
+              child: Row(
+                children: [
+                  Image.asset("plastic_image1.jpg",width:150,),
+                  SizedBox(width:20,),
+                  Column(
+                    children: [
+                      Text("2 Items Founded",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:18),),
+                      SizedBox(height:13,),
+                      Row(
+                        children: [
+                          Text("Plastic cover",style:TextStyle(color:Colors.white),),
+                          SizedBox(width:13,),
+                          Container(
+                            color:Colors.lightBlueAccent,
+                            width:90,
+                            height:9,
+                          ),
+                          SizedBox(width:5,),
+                          Text("90",style:TextStyle(color:Colors.white),),
+                        ],
+                      ),
+                      SizedBox(height:5,),
+                      Row(
+                        children: [
+                          Text("Plastic bottle",style:TextStyle(color:Colors.white),),
+                          SizedBox(width:13,),
+                          Container(
+                            color:Colors.lightBlueAccent,
+                            width:90,
+                            height:9,
+                          ),
+                          SizedBox(width:5,),
+                          Text("34",style:TextStyle(color:Colors.white),),
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      )
+          ),
+      ),
+    );
   }
 }
+
 class Account_Screen extends StatelessWidget{
   const Account_Screen({super.key});
   @override
   Widget build(BuildContext context){
     return Scaffold(
-        appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-          IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+        appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+          IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+              return Notification_Screen();
+            }));
+          }, icon:Icon(Icons.notifications)),
           IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
               return Account_Screen();
             }));
-          }, icon:Icon(Icons.account_circle,color:Colors.white,))
+          }, icon:Icon(Icons.account_circle))
         ],leading:  IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Home_Screen();
           }));
-        }, icon:Icon(Icons.arrow_back,color:Colors.white,)),),
-      backgroundColor: const Color(0xFF0C0C0C),
+        }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor: const Color(0xFFE9FAF6),
       body:
         SingleChildScrollView(
           child: SafeArea(child:
@@ -452,7 +537,7 @@ class Account_Screen extends StatelessWidget{
             children: [
               SizedBox(height:30,),
               Card(
-                color:Color(0xFF343535),
+                color:Color(0xFF456885),
                 child:
                 Padding(
                   padding: const EdgeInsets.all(13),
@@ -476,7 +561,7 @@ class Account_Screen extends StatelessWidget{
                 height:20,
               ),
               Card(
-                color:Color(0xFF343535),
+                color:Color(0xFF456885),
                 child:Padding(
                   padding: EdgeInsets.all(13),
                   child:Column(
@@ -484,7 +569,7 @@ class Account_Screen extends StatelessWidget{
                      Container(
                        width:double.infinity,
                        color:
-                       Color(0xFF343535),
+                       Color(0xFF456885),
           
                        child:
                        Align(
@@ -504,7 +589,7 @@ class Account_Screen extends StatelessWidget{
                       Container(
                         width:double.infinity,
                         color:
-                        Color(0xFF343535),
+                        Color(0xFF456885),
           
                         child:
                         Align(
@@ -523,7 +608,7 @@ class Account_Screen extends StatelessWidget{
                       Container(
                         width:double.infinity,
                         color:
-                        Color(0xFF343535),
+                        Color(0xFF456885),
           
                         child:
                         Align(
@@ -544,7 +629,7 @@ class Account_Screen extends StatelessWidget{
                 height:20,
               ),
               Card(
-                color:Color(0xFF343535),
+                color:Color(0xFF456885),
                 child:Padding(
                   padding: EdgeInsets.all(13),
                   child:Column(
@@ -552,7 +637,7 @@ class Account_Screen extends StatelessWidget{
                       Container(
                         width:double.infinity,
                         color:
-                        Color(0xFF343535),
+                        Color(0xFF456885),
 
                         child:
                         Align(
@@ -570,7 +655,7 @@ class Account_Screen extends StatelessWidget{
                       Container(
                         width:double.infinity,
                         color:
-                        Color(0xFF343535),
+                        Color(0xFF456885),
 
                         child:
                         Align(
@@ -586,7 +671,7 @@ class Account_Screen extends StatelessWidget{
                       Container(
                         width:double.infinity,
                         color:
-                        Color(0xFF343535),
+                        Color(0xFF456885),
 
                         child:
                         Align(
@@ -612,24 +697,68 @@ class Account_Screen extends StatelessWidget{
     );
   }
 }
-class UploadScreen extends StatelessWidget{
+class UploadScreen extends StatefulWidget{
   const UploadScreen({super.key});
+
+  @override
+  State<UploadScreen> createState() => _UploadScreenState();
+}
+
+class _UploadScreenState extends State<UploadScreen> {
+  File? _image;
+  final picker = ImagePicker();
+
+
+  Future<void> _pickImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-        IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Account_Screen();
           }));
-        }, icon:Icon(Icons.account_circle,color:Colors.white,))
+        }, icon:Icon(Icons.account_circle))
       ],leading:  IconButton(onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
           return Home_Screen();
         }));
-      }, icon:Icon(Icons.arrow_back,color:Colors.white,)),),
-      backgroundColor:Color(0xFF0C0C0C) ,
+      }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor:Color(0xFFE9FAF6) ,
+      body:
+      SafeArea(child:
+      Column(
+        children: [
+          SizedBox(height:130,),
+          Align(
+            alignment:Alignment.center,
+              child: Text("Upload New Image",style:TextStyle(fontSize:16,color:Colors.black),)),
+          SizedBox(height: 30),
+          
+          Container(
+            width:190,height:190,color:Colors.lightBlueAccent,
+            child:Center(
+              child: 
+              IconButton(onPressed:_pickImage, icon:Icon(Icons.camera_enhance,size:65,color:Colors.white,))
+              ,
+            ),
+          ),
+        ],
+      )
+      )
+      ,
     );
   }
 }
@@ -639,19 +768,23 @@ class Notification_Screen extends StatelessWidget{
   Widget build(BuildContext context){
 
     return Scaffold(
-        appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-          IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+        appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+          IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+              return Notification_Screen();
+            }));
+          }, icon:Icon(Icons.notifications)),
           IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
               return Account_Screen();
             }));
-          }, icon:Icon(Icons.account_circle,color:Colors.white,))
+          }, icon:Icon(Icons.account_circle))
         ],leading:  IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Home_Screen();
           }));
-        }, icon:Icon(Icons.arrow_back,color:Colors.white,)),),
-      backgroundColor: Color(0xFF0C0C0C)
+        }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor: Color(0xFFE9FAF6)
 
     );
   }
@@ -662,40 +795,215 @@ class Password_Screen2 extends StatelessWidget{
   Widget build(BuildContext context){
 
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-        IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Account_Screen();
           }));
-        }, icon:Icon(Icons.account_circle,color:Colors.white,))
+        }, icon:Icon(Icons.account_circle))
       ],leading:  IconButton(onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
           return Home_Screen();
         }));
-      }, icon:Icon(Icons.arrow_back,color:Colors.white,)),),
+      }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor: Color(0xFFE9FAF6),
+      body:SafeArea(child:
+      Center(
+        child:
+        Padding(padding: EdgeInsets.all(13),
+          child:
+          Column(
+            children: [
+              SizedBox(height:20,),
+              Container(
+                height: 210,
+                width: double.infinity,
+              ),
+
+              SizedBox(height:20,),
+              TextField(
+                style:const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:const Color(0xFFA3BFBF),
+                  hintText:'Enter Your Current Password',
+                  hintStyle: const TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none
+                  ),
+
+
+
+                ),
+              ),
+
+              SizedBox(height:30,),
+              TextField(
+                style:const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:const Color(0xFFA3BFBF),
+                  hintText:'Enter your New Password',
+                  hintStyle: const TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none
+                  ),
+
+
+
+                ),
+              ),
+              SizedBox(height:20,),
+              TextField(
+                style:const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:const Color(0xFFA3BFBF),
+                  hintText:'Re Enter Password',
+                  hintStyle: const TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none
+                  ),
+
+
+
+                ),
+              ),
+              SizedBox(height:30,),
+              SizedBox(
+                width:double.infinity,
+                child: ElevatedButton(onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
+                    return Login_page();
+                  }));
+                },style:ElevatedButton.styleFrom(
+                    backgroundColor:Colors.blue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
+                    )
+                ),child:Text('Submit',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
+              ),
+
+            ],
+          ),),
+      )
+      )
+        ,
     );
   }
 }
-class profile_screen2 extends StatelessWidget{
+class profile_screen2 extends StatefulWidget{
   const profile_screen2({super.key});
+
+  @override
+  State<profile_screen2> createState() => _profile_screen2State();
+}
+
+class _profile_screen2State extends State<profile_screen2> {
+  File? _image;
+  final picker = ImagePicker();
+
+
+  Future<void> _pickImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context){
 
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-        IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Account_Screen();
           }));
-        }, icon:Icon(Icons.account_circle,color:Colors.white,))
+        }, icon:Icon(Icons.account_circle))
       ],leading:  IconButton(onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
           return Home_Screen();
         }));
-      }, icon:Icon(Icons.arrow_back,color:Colors.white,)),),
-      backgroundColor: Color(0xFF0C0C0C),
+      }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor: Color(0xFFE9FAF6),
+      body:
+      SafeArea(child:
+      Column(
+        children: [
+          SizedBox(height:60,),
+          Card(
+            color:Color(0xFF456885),
+            child:Padding(
+              padding: EdgeInsets.all(13),
+              child:Column(
+                children: [
+
+                  IconButton(onPressed:_pickImage, icon:Icon(Icons.camera_enhance_rounded,size:85,color:Colors.white,)),
+                  Divider(
+                    thickness:0.5,
+                    color:Colors.white,
+                  ),
+                  Container(
+                    width:double.infinity,
+                    color:
+                    Color(0xFF456885),
+
+                    child:
+                    Align(
+                        alignment:Alignment.center,
+                        child: TextButton(onPressed: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+                            return Screen4();
+                          }));
+
+                        }, child:Text("Change User Name",style:TextStyle(color:Colors.white,fontSize:14),)))
+                    ,
+                  ),
+                  Divider(
+                    thickness:0.5,
+                    color:Colors.white,
+                  ),
+                  Container(
+                    width:double.infinity,
+                    color:
+                    Color(0xFF456885),
+
+                    child:
+                    Align(
+                        alignment:Alignment.center,
+                        child: TextButton(onPressed: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+                            return Screen5();
+                          }));
+                        }, child:Text("Change Email",style:TextStyle(color:Colors.white,fontSize:14),)))
+                    ,
+                  ),
+
+
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height:20,
+          ),
+        ],
+      )),
     );
   }
 }
@@ -705,19 +1013,23 @@ class report_screen2 extends StatelessWidget{
   Widget build(BuildContext context){
 
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-        IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Account_Screen();
           }));
-        }, icon:Icon(Icons.account_circle,color:Colors.white,))
+        }, icon:Icon(Icons.account_circle))
       ],leading:  IconButton(onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
           return Home_Screen();
         }));
-      }, icon:Icon(Icons.arrow_back,color:Colors.white,)),),
-      backgroundColor:  Color(0xFF0C0C0C),
+      }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor:  Color(0xFFE9FAF6),
     );
   }
 }
@@ -728,21 +1040,225 @@ class Screen3 extends StatelessWidget{
   Widget build(BuildContext context){
 
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFF0C0C0C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
-        IconButton(onPressed: (){}, icon:Icon(Icons.notifications,color:Colors.white,)),
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return Account_Screen();
           }));
-        }, icon:Icon(Icons.account_circle,color:Colors.white,))
+        }, icon:Icon(Icons.account_circle))
       ],leading:  IconButton(onPressed: (){
         Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
           return Home_Screen();
         }));
-      }, icon:Icon(Icons.arrow_back,color:Colors.white,)),),
-      backgroundColor:  Color(0xFF0C0C0C),
+      }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor:  Color(0xFFE9FAF6),
     );
   }
 }
+
+
+class Screen4 extends StatelessWidget{
+  const Screen4({super.key});
+  @override
+  Widget build(BuildContext context){
+
+    return Scaffold(
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Account_Screen();
+          }));
+        }, icon:Icon(Icons.account_circle))
+      ],leading:  IconButton(onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+          return Home_Screen();
+        }));
+      }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor:  Color(0xFFE9FAF6),
+      body:
+      SafeArea(child:
+      Center(
+        child:
+        Padding(padding: EdgeInsets.all(13),
+          child:
+          Column(
+            children: [
+              SizedBox(height:20,),
+              Container(
+                height: 210,
+                width: double.infinity,
+              ),
+              SizedBox(height:13,),
+
+              SizedBox(height:20,),
+              TextField(
+                style:const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:const Color(0xFFA3BFBF),
+                  hintText:'New User name',
+                  hintStyle: const TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none
+                  ),
+
+
+
+                ),
+              ),
+
+              SizedBox(height:30,),
+              TextField(
+                style:const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:const Color(0xFFA3BFBF),
+                  hintText:'Enter Password',
+                  hintStyle: const TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none
+                  ),
+
+
+
+                ),
+              ),
+
+              SizedBox(height:30,),
+              SizedBox(
+                width:double.infinity,
+                child: ElevatedButton(onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
+                    return Login_page();
+                  }));
+                },style:ElevatedButton.styleFrom(
+                    backgroundColor:Colors.blue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
+                    )
+                ),child:Text('Submit',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
+              ),
+
+            ],
+          ),),
+      )
+      )
+        ,
+    );
+  }
+}
+
+class Screen5 extends StatelessWidget{
+  const Screen5({super.key});
+  @override
+  Widget build(BuildContext context){
+
+    return Scaffold(
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Notification_Screen();
+          }));
+        }, icon:Icon(Icons.notifications)),
+        IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Account_Screen();
+          }));
+        }, icon:Icon(Icons.account_circle))
+      ],leading:  IconButton(onPressed: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+          return Home_Screen();
+        }));
+      }, icon:Icon(Icons.arrow_back,)),),
+      backgroundColor:  Color(0xFFE9FAF6),
+      body:
+      SafeArea(child:
+      Center(
+        child:
+        Padding(padding: EdgeInsets.all(13),
+          child:
+          Column(
+            children: [
+              SizedBox(height:20,),
+              Container(
+                height: 210,
+                width: double.infinity,
+              ),
+
+              SizedBox(height:20,),
+              TextField(
+                style:const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:const Color(0xFFA3BFBF),
+                  hintText:'Enter your New Email',
+                  hintStyle: const TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none
+                  ),
+
+
+
+                ),
+              ),
+
+              SizedBox(height:30,),
+              TextField(
+                style:const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:const Color(0xFFA3BFBF),
+                  hintText:'Enter Password',
+                  hintStyle: const TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none
+                  ),
+
+
+
+                ),
+              ),
+
+              SizedBox(height:30,),
+              SizedBox(
+                width:double.infinity,
+                child: ElevatedButton(onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
+                    return Account_Screen();
+                  }));
+                },style:ElevatedButton.styleFrom(
+                    backgroundColor:Colors.blue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
+                    )
+                ),child:Text('Submit',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
+              ),
+
+            ],
+          ),),
+      )
+      )
+      ,
+    );
+  }
+}
+
+
+
+
 
 
