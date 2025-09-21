@@ -59,8 +59,80 @@ class _RegisterState extends State<Register> {
       Fluttertoast.showToast(msg: "No image selected");
     }
   }
-
   Future<void> _sendData() async {
+    String uname = _name.text.trim();
+    String uemail = _email1.text.trim();
+    String uphone = _phone_number.text.trim();
+    String dob = _dob.text.trim();
+    String place = _place.text.trim();
+    String pin_code = _pin_code.text.trim();
+    String gender = gender_;
+    String city = _city.text.trim();
+    String state = _state.text.trim();
+    String password = _password1.text;
+    String confirm_password = _confirmPassword.text;
+
+    SharedPreferences sh = await SharedPreferences.getInstance();
+    String? url = sh.getString('url');
+
+    if (url == null) {
+      Fluttertoast.showToast(msg: "Server URL not found.");
+      return;
+    }
+
+    final uri = Uri.parse('$url/user_signup_post/');
+    var request = http.MultipartRequest('POST', uri);
+
+    // Required fields - make sure names match Django keys
+    request.fields['name1'] = uname;
+    request.fields['email1'] = uemail;
+    request.fields['phone_number1'] = uphone;
+    request.fields['dob1'] = dob;
+    request.fields['place1'] = place;
+    request.fields['pincode1'] = pin_code;
+    request.fields['gender1'] = gender;
+    request.fields['city1'] = city;
+    request.fields['state1'] = state;
+    request.fields['password1'] = password;
+    request.fields['_confirmPassword'] = confirm_password;
+
+    // Attach photo only if user selected one
+    if (_selectedImage != null) {
+      request.files.add(await http.MultipartFile.fromPath('photo', _selectedImage!.path));
+    }
+
+    try {
+      var streamedResponse = await request.send();
+      var respStr = await streamedResponse.stream.bytesToString();
+
+      // Debug output (remove in production)
+      print('Status code: ${streamedResponse.statusCode}');
+      print('Raw response: $respStr');
+
+      // Try to decode JSON safely
+      Map<String, dynamic>? data;
+      try {
+        data = jsonDecode(respStr) as Map<String, dynamic>?;
+      } catch (e) {
+        // Server returned non-JSON (likely an error page). Show raw message for debugging.
+        Fluttertoast.showToast(msg: "Invalid server response. See console.");
+        print('JSON decode failed: $e');
+        return;
+      }
+
+      if (streamedResponse.statusCode == 200 && data != null && data['status'] == 'ok') {
+        Fluttertoast.showToast(msg: "Submitted successfully.");
+      } else {
+        String serverMsg = data != null && data['message'] != null ? data['message'] : 'Submission failed';
+        Fluttertoast.showToast(msg: serverMsg);
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Request error: $e");
+    }
+  }
+
+
+  Future<void> _sendData1() async {
     String uname = _name.text;
     String uemail = _email1.text;
     String uphone = _phone_number.text;
@@ -84,16 +156,16 @@ class _RegisterState extends State<Register> {
     final uri = Uri.parse('$url/user_signup_post/');
     var request = http.MultipartRequest('POST', uri);
     request.fields['name1'] = uname;
-    request.fields['email1'] = uemail;
-    request.fields['phone_number1'] = uphone;
-    request.fields['dob1'] = dob;
-    request.fields['place1'] = place;
-    request.fields['pin_code1'] = pin_code;
-    request.fields['gender1'] = gender;
-    request.fields['city1'] = city;
-    request.fields['state1'] = state;
-    request.fields['password1'] = password;
-    request.fields['_confirmPassword'] = confirm_password;
+    // request.fields['email1'] = uemail;
+    // request.fields['phone_number1'] = uphone;
+    // request.fields['dob1'] = dob;
+    // request.fields['place1'] = place;
+    // request.fields['pin_code1'] = pin_code;
+    // request.fields['gender1'] = gender;
+    // request.fields['city1'] = city;
+    // request.fields['state1'] = state;
+    // request.fields['password1'] = password;
+    // request.fields['_confirmPassword'] = confirm_password;
 
 
     if (_selectedImage != null) {

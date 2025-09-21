@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trashdetection/edit_profile.dart';
 void main(){
   
   runApp(MyApp());
@@ -82,17 +83,14 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
                   padding: EdgeInsets.all(5),
                   child: Text(pin_),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(district_),
-                ),
+
 
               ],
             ),
             ElevatedButton(
               onPressed: () {
-                // Navigator.push(context, MaterialPageRoute(
-                //   builder: (context) => MyEditPage(title: "Edit Profile"),));
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => MyEditPage(title: "Edit Profile"),));
               },
               child: Text("Edit Profile"),
             ),
@@ -113,7 +111,6 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
   String place_ = "";
   String state_="";
   String pin_ = "";
-  String district_ = "";
   String photo_ = "";
   String city_ ="";
 
@@ -131,17 +128,16 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
       if (response.statusCode == 200) {
         String status = jsonDecode(response.body)['status'];
         if (status == 'ok') {
-          String name = jsonDecode(response.body)['name'];
-          String dob = jsonDecode(response.body)['dob'];
-          String gender = jsonDecode(response.body)['gender'];
-          String email = jsonDecode(response.body)['email'];
-          String phone = jsonDecode(response.body)['phone'];
-          String place = jsonDecode(response.body)['place'];
+          String name = jsonDecode(response.body)['name'].toString();
+          String dob = jsonDecode(response.body)['dob'].toString();
+          String gender = jsonDecode(response.body)['gender'].toString();
+          String email = jsonDecode(response.body)['email'].toString();
+          String phone = jsonDecode(response.body)['phone'].toString();
+          String place = jsonDecode(response.body)['place'].toString();
 
-          String state = jsonDecode(response.body)['state'];
-          String pin = jsonDecode(response.body)['pin'];
-          String district = jsonDecode(response.body)['district'];
-          String photo = img + jsonDecode(response.body)['photo'];
+          String state = jsonDecode(response.body)['state'].toString();
+          String pin = jsonDecode(response.body)['pin'].toString();
+          String photo = img + jsonDecode(response.body)['photo'].toString();
 
           setState(() {
             name_ = name;
@@ -152,7 +148,6 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
             place_ = place;
             state_ = state;
             pin_ = pin;
-            district_ = district;
             photo_ = photo;
           });
         } else {

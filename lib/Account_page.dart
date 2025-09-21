@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trashdetection/Notification_page.dart';
 import 'package:trashdetection/login.dart';
 import 'package:trashdetection/password_page2.dart';
+import 'package:trashdetection/view_profile_page.dart';
 
 import 'Home_page.dart';
 import 'main.dart';
@@ -109,6 +110,26 @@ class account_page extends StatelessWidget {
                                   }));
 
                                 }, child:Text("Edit Profile Details",style:TextStyle(color:Colors.white,fontSize:14),)))
+                            ,
+                          ),
+                          Divider(
+                            thickness:0.5,
+                            color:Colors.white,
+                          ),
+                          Container(
+                            width:double.infinity,
+                            color:
+                            Color(0xFF456885),
+
+                            child:
+                            Align(
+                                alignment:Alignment.topLeft,
+                                child: TextButton(onPressed: (){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+                                    return ViewProfilePage();
+                                  }));
+
+                                }, child:Text("View profile details",style:TextStyle(color:Colors.white,fontSize:14),)))
                             ,
                           ),
                           Divider(

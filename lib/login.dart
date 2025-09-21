@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trashdetection/Home_page.dart';
 import 'package:trashdetection/password_page1.dart';
 import 'package:trashdetection/user_register.dart';
-
+final String userid = '';
 void main(){
   runApp(loginpage());
 }
@@ -47,7 +47,6 @@ class _login_pageState extends State<login_page> {
 
     SharedPreferences sh = await SharedPreferences.getInstance();
     String url = sh.getString('url').toString();
-
     final urls = Uri.parse('$url/user_login_post/');
     try {
       final response = await http.post(urls, body: {
@@ -57,14 +56,18 @@ class _login_pageState extends State<login_page> {
       if (response.statusCode == 200) {
         String status = jsonDecode(response.body)['status'];
         if (status == 'ok') {
-          String lid = jsonDecode(response.body)['lid'];
-          sh.setString("lid", lid);
+          String lid = jsonDecode(response.body)['lid'].toString();
+          sh.setString('lid', lid);
+          Fluttertoast.showToast(msg:lid);
 
           // Navigator.push(
           //   context,
           //   MaterialPageRoute(builder: (context) => BankingDashboard()),
           // );
           Fluttertoast.showToast(msg: "Loggin success");
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+            return Home_Screen();
+          }));
         } else {
           Fluttertoast.showToast(msg: 'Not Found');
         }
@@ -155,14 +158,14 @@ class _login_pageState extends State<login_page> {
                         width:double.infinity,
                         child: ElevatedButton(onPressed: () async {
                           _send_data();
-                          setState(() {
-                            if(email2.text=="user1" && password.text=="Password123"){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                                return Home_Screen();
-                              }));
-        
-                            }
-                          });
+                          // setState(() {
+                          //   if(email2.text=="user1" && password.text=="Password123"){
+                          //     // Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+                          //     //   return Home_Screen();
+                          //     // }));
+                          //
+                          //   }
+                          // });
         
         
                         },style:ElevatedButton.styleFrom(

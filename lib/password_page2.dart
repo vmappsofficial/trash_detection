@@ -9,7 +9,7 @@ void main() {
 }
 final current_password = TextEditingController();
 final new_password = TextEditingController();
-final new_password2 = TextEditingController();
+final confirm_password = TextEditingController();
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -30,7 +30,12 @@ class change_password extends StatefulWidget {
 }
 
 class _change_passwordState extends State<change_password> {
-  @override
+  TextEditingController current_password=new TextEditingController();
+  TextEditingController new_password = new TextEditingController();
+  TextEditingController confirm_password = new TextEditingController();
+
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
@@ -104,7 +109,7 @@ class _change_passwordState extends State<change_password> {
               ),
               SizedBox(height:20,),
               TextFormField(
-                controller: new_password2,
+                controller: confirm_password,
                 style:const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
