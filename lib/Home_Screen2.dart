@@ -34,6 +34,7 @@ class _Home_page2State extends State<Home_page2> {
   _Home_page2State()
   {
     viewUsers("");
+
   }
 
   List<Map<String, dynamic>> users = [];
@@ -172,8 +173,29 @@ class _Home_page2State extends State<Home_page2> {
                           children: [
                             Text("date: ${user['date']}"),
                             // Text("file: ${user['uploaded_file']}"),
-                            Image.network(user['uploaded_file'])
-                            
+                            Image.network(user['uploaded_file']),
+                            SizedBox(height: 13,),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.lightBlue,
+
+                                )
+                                ,onPressed: () async {
+
+
+                                  SharedPreferences sh= await SharedPreferences.getInstance();
+                                  sh.setString("id", user['id'].toString());
+                                  sh.setString("uploaded_file", user['uploaded_file'].toString());
+                                  sh.setString("date", user['date'].toString());
+
+                              Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
+                                return report_screen(title: '${user['id']}',);
+                              }));
+
+
+                            }, child: Text("View report",style: TextStyle(color: Colors.white,fontSize: 11),))
+
+
                           ],
                         ),
                       ),
@@ -190,15 +212,15 @@ class _Home_page2State extends State<Home_page2> {
               //     alignment:Alignment.topLeft,
               //     child: Image.asset("plastic_image1.jpg",height:160)),
 
-              Align(
-                alignment:Alignment.topLeft,
-                child:
-                TextButton(onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                    return report_screen();
-                  }));
-                }, child:Text("View Report")),
-              )
+              // Align(
+              //   alignment:Alignment.topLeft,
+              //   child:
+              //   TextButton(onPressed: (){
+              //     Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+              //       return report_screen();
+              //     }));
+              //   }, child:Text("View Report")),
+              // )
 
 
             ],

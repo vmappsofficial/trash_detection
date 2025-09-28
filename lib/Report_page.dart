@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trashdetection/Account_page.dart';
 import 'package:trashdetection/Notification_page.dart';
 void main(){
@@ -14,9 +18,87 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class report_screen extends StatelessWidget {
-  const report_screen({super.key});
+class report_screen extends StatefulWidget {
+  // const report_screen({super.key});
 
+  final String title;
+
+
+
+  const report_screen({super.key,this.title = 'Report Screen'});
+
+
+
+  @override
+  State<report_screen> createState() => _report_screenState();
+}
+
+class _report_screenState extends State<report_screen> {
+
+  _report_screenState(){
+    viewUsers("");
+  }
+
+
+  List<Map<String, dynamic>> users = [];
+  List<Map<String, dynamic>> filteredUsers = [];
+  List<String> nameSuggestions = [];
+  Future<void> viewUsers(String searchValue) async {
+    try {
+      SharedPreferences sh = await SharedPreferences.getInstance();
+      String urls = sh.getString('url') ?? '';
+      String img = sh.getString('img_url') ?? '';
+      String lid = sh.getString('lid') ?? '';
+      String id = sh.getString('id') ?? '';
+      String apiUrl = '$urls/view_detections/';
+
+      String uploaded_file= sh.getString("uploaded_file").toString();
+      String date= sh.getString("date").toString();
+
+      setState(() {
+
+        path=uploaded_file;
+        Date1 = date;
+      });
+
+      var response = await http.post(Uri.parse(apiUrl), body: {
+
+        'id':id
+      });
+      var jsonData = json.decode(response.body);
+
+      print(id);
+
+
+      if (jsonData['status'] == 'ok') {
+        List<Map<String, dynamic>> tempList = [];
+        for (var item in jsonData['data']) {
+          tempList.add({
+            'id': item['id'],
+            'trash': item['trash'],
+
+          });
+        }
+        setState(() {
+          users = tempList;
+          filteredUsers = tempList;
+          //     .where((user) =>
+          //     user['name']
+          //         .toString()
+          //         .toLowerCase()
+          //         .contains(searchValue.toLowerCase()))
+          //     .toList();
+          // nameSuggestions = users.map((e) => e['name'].toString()).toSet().toList();
+
+        });
+      }
+    } catch (e) {
+      print("Error fetching users: $e");
+    }
+  }
+
+  String path="";
+  String Date1="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,65 +117,63 @@ class report_screen extends StatelessWidget {
 
       }, icon:Icon(Icons.search,)),),
       backgroundColor: const Color(0xFFE9FAF6),
-      body: SafeArea(child:
-      Container(
-          color: Color(0xFF456885),
-          height:150,
-          width:double.infinity,
+      body:
 
-          child:
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child:Column(
-              children: [
-                SizedBox(height:13,),
-                SingleChildScrollView(
-                  scrollDirection:Axis.horizontal,
-                  child: Row(
+      Column(
+        children: [
+          Text(Date1),
+      Expanded(
+        child: Container(
+          height: 200,
+          width: 400,
+          decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
+              image: DecorationImage(image:
+              NetworkImage(path),
+                  fit: BoxFit.cover
+              )
+          ),
+        ),
+      ),
+
+          Text("Detected trashes",style: TextStyle(fontSize:18),),
+          SizedBox(height:13,),
+
+          Expanded(child:
+
+
+
+          ListView.builder(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            itemCount: filteredUsers.length,
+            itemBuilder: (context, index) {
+              final user = filteredUsers[index];
+              return Card(
+                margin: const EdgeInsets.all(10),
+                elevation: 5,
+                child: ListTile(
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset("plastic_image1.jpg",width:150,),
-                      SizedBox(width:13,),
-                      Column(
-                        children: [
-                          Text("2 Items Founded",style:TextStyle(color:Colors.white,fontWeight:FontWeight.bold,fontSize:18),),
-                          SizedBox(height:13,),
-                          Row(
-                            children: [
-                              Text("Plastic cover",style:TextStyle(color:Colors.white),),
-                              SizedBox(width:13,),
-                              Container(
-                                color:Colors.lightBlueAccent,
-                                width:60,
-                                height:9,
-                              ),
-                              SizedBox(width:5,),
-                              Text("90",style:TextStyle(color:Colors.white),),
-                            ],
-                          ),
-                          SizedBox(height:5,),
-                          Row(
-                            children: [
-                              Text("Plastic bottle",style:TextStyle(color:Colors.white),),
-                              SizedBox(width:13,),
-                              Container(
-                                color:Colors.lightBlueAccent,
-                                width:60,
-                                height:9,
-                              ),
-                              SizedBox(width:5,),
-                              Text("34",style:TextStyle(color:Colors.white),),
-                            ],
-                          ),
+                      Text("trash: ${user['trash']}"),
+                      // Text("file: ${user['uploaded_file']}"),
 
-                        ],
-                      ),
+                      SizedBox(height: 13,),
+
+
+
                     ],
                   ),
-                )
-              ],
-            ),
-          )
-      ),
+                ),
+              );
+            },
+          ),
+
+
+
+
+          ),
+        ],
       ),
 
     );

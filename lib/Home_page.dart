@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trashdetection/Home_Screen2.dart';
 import 'package:trashdetection/Upload_page.dart';
+import 'package:trashdetection/reportoriginal.dart';
 
 import 'Report_page.dart';
 void main(){
@@ -20,7 +21,7 @@ var n2=0;
 final List<Widget> _pages = [
   Home_page2(),
   Upload_page(),
-  report_screen(),
+  report_page(),
 
 ];
 class Home_Screen extends StatefulWidget{
