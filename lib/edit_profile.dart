@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart ';
 
 import 'package:permission_handler/permission_handler.dart';
 import 'package:trashdetection/main.dart';
+import 'package:trashdetection/view_profile_page.dart';
 
 
 void main() {
@@ -263,8 +264,8 @@ class _MyEditPageState extends State<MyEditPage> {
         if (status=='ok') {
 
           Fluttertoast.showToast(msg: 'Updated Successfully');
-          // Navigator.push(context, MaterialPageRoute(
-          //   builder: (context) => ViewProfilePage(title: "Profile"),));
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => ViewProfilePage(),));
         }else {
           Fluttertoast.showToast(msg: 'Not Found');
         }

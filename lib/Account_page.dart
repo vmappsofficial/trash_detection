@@ -146,7 +146,7 @@ class account_page extends StatelessWidget {
                                 alignment:Alignment.topLeft,
                                 child: TextButton(onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                                    return change_password();
+                                    return ChangePassword();
                                   }));
                                 }, child:Text("Change Password",style:TextStyle(color:Colors.white,fontSize:14),)))
                             ,

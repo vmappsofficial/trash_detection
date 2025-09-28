@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trashdetection/Account_page.dart';
 import 'package:trashdetection/Notification_page.dart';
 
@@ -19,8 +23,63 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class Home_page2 extends StatelessWidget {
+class Home_page2 extends StatefulWidget {
   const Home_page2({super.key});
+
+  @override
+  State<Home_page2> createState() => _Home_page2State();
+}
+
+class _Home_page2State extends State<Home_page2> {
+  _Home_page2State()
+  {
+    viewUsers("");
+  }
+
+  List<Map<String, dynamic>> users = [];
+  List<Map<String, dynamic>> filteredUsers = [];
+  List<String> nameSuggestions = [];
+  Future<void> viewUsers(String searchValue) async {
+    try {
+      SharedPreferences sh = await SharedPreferences.getInstance();
+      String urls = sh.getString('url') ?? '';
+      String img = sh.getString('img_url') ?? '';
+      String lid = sh.getString('lid') ?? '';
+      String apiUrl = '$urls/view_upload_file/';
+
+      var response = await http.post(Uri.parse(apiUrl), body: {
+
+        'lid':lid
+      });
+      var jsonData = json.decode(response.body);
+
+      if (jsonData['status'] == 'ok') {
+        List<Map<String, dynamic>> tempList = [];
+        for (var item in jsonData['data']) {
+          tempList.add({
+            'id': item['id'],
+            'uploaded_file': img+item['uploaded_file'],
+            'date': item['date'],
+
+          });
+        }
+        setState(() {
+          users = tempList;
+          filteredUsers = tempList;
+          //     .where((user) =>
+          //     user['name']
+          //         .toString()
+          //         .toLowerCase()
+          //         .contains(searchValue.toLowerCase()))
+          //     .toList();
+          // nameSuggestions = users.map((e) => e['name'].toString()).toSet().toList();
+
+        });
+      }
+    } catch (e) {
+      print("Error fetching users: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,9 +152,43 @@ class Home_page2 extends StatelessWidget {
                 ,
               ),
               SizedBox(height:13,),
-              Align(
-                  alignment:Alignment.topLeft,
-                  child: Image.asset("plastic_image1.jpg",height:160)),
+
+              Container(
+                height: 250,
+                child: Expanded(child:
+
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  itemCount: filteredUsers.length,
+                  itemBuilder: (context, index) {
+                    final user = filteredUsers[index];
+                    return Card(
+                      margin: const EdgeInsets.all(10),
+                      elevation: 5,
+                      child: ListTile(
+                      subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("date: ${user['date']}"),
+                            // Text("file: ${user['uploaded_file']}"),
+                            Image.network(user['uploaded_file'])
+                            
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+
+
+
+
+                ),
+              ),
+              // Align(
+              //     alignment:Alignment.topLeft,
+              //     child: Image.asset("plastic_image1.jpg",height:160)),
 
               Align(
                 alignment:Alignment.topLeft,
