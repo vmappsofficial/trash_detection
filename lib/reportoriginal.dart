@@ -96,9 +96,7 @@ class _report_pageState extends State<report_page> {
             return account_page();
           }));
         }, icon:Icon(Icons.account_circle))
-      ],leading:  IconButton(onPressed: (){
-
-      }, icon:Icon(Icons.search,)),),
+      ],),
       backgroundColor:Colors.white,
       body: ListView.builder(
         // shrinkWrap: true,

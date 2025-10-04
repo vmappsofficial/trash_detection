@@ -1,5 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Home_page.dart';
 import 'login.dart';
 void main() {
   runApp(const MyApp());
@@ -72,6 +78,7 @@ class _password_reset_pageState extends State<password_reset_page> {
                   Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
                     return loginpage();
                   }));
+                  _send_data();
                 },style:ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
@@ -87,4 +94,46 @@ class _password_reset_pageState extends State<password_reset_page> {
       ,
     );
   }
+
+
+
+  void _send_data() async {
+    String email = email2.text;
+
+
+    SharedPreferences sh = await SharedPreferences.getInstance();
+    String url = sh.getString('url').toString();
+    final urls = Uri.parse('$url/user_forgot_password/');
+    try {
+      final response = await http.post(urls, body: {
+        'email': email,
+      });
+      if (response.statusCode == 200) {
+        String status = jsonDecode(response.body)['status'];
+        if (status == 'ok') {
+          // String lid = jsonDecode(response.body)['lid'].toString();
+          // sh.setString('lid', lid);
+          // Fluttertoast.showToast(msg:lid);
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => login_page()),
+          );
+          Fluttertoast.showToast(msg: "Password Reset email send success");
+          // Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+          //   return Home_Screen();
+          // }));
+        } else {
+          Fluttertoast.showToast(msg: 'Not Found');
+        }
+      } else {
+        Fluttertoast.showToast(msg: 'Network Error');
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+
+
+
 }
