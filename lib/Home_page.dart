@@ -37,9 +37,9 @@ class _Home_ScreenState extends State<Home_Screen> {
   Widget build(BuildContext context){
     return Scaffold(
 
-      backgroundColor: const Color(0xFFE9FAF6),
+      backgroundColor:Colors.white,
       bottomNavigationBar: BottomNavigationBar(
-          backgroundColor:Color(0xFFE9FAF6),
+          backgroundColor:Colors.white,
           selectedItemColor:Colors.lightBlueAccent,
           currentIndex: n2,
           onTap: (n1){

@@ -1,10 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trashdetection/Notification_page.dart';
 import 'package:trashdetection/login.dart';
 import 'package:trashdetection/password_page2.dart';
 import 'package:trashdetection/view_profile_page.dart';
 
 import 'Home_page.dart';
+import 'edit_profile.dart';
 import 'main.dart';
 void main(){
   runApp(MyApp());
@@ -19,13 +25,68 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class account_page extends StatelessWidget {
+class account_page extends StatefulWidget {
   const account_page({super.key});
 
   @override
+  State<account_page> createState() => _account_pageState();
+}
+
+class _account_pageState extends State<account_page> {
+  _account_pageState(){
+    _send_data();
+  }
+
+  String name_ = "";
+  String dob_ = "";
+  String gender_ = "";
+  String email_ = "";
+  String phone_ = "";
+  String place_ = "";
+  String state_="";
+  String pin_ = "";
+  String photo_ = "";
+  String city_ ="";
+
+  void _send_data() async {
+    SharedPreferences sh = await SharedPreferences.getInstance();
+    String url = sh.getString('url').toString();
+    String lid = sh.getString('lid').toString();
+    String img = sh.getString('img_url').toString();
+
+    final urls = Uri.parse('$url/view_profile/');
+    try {
+      final response = await http.post(urls, body: {
+        'lid': lid
+      });
+      if (response.statusCode == 200) {
+        String status = jsonDecode(response.body)['status'];
+        if (status == 'ok') {
+          String name = jsonDecode(response.body)['name'].toString();
+          String email = jsonDecode(response.body)['email'].toString();
+          String photo = img + jsonDecode(response.body)['photo'].toString();
+
+          setState(() {
+            name_ = name;
+            email_ = email;
+            photo_ = photo;
+          });
+        } else {
+          Fluttertoast.showToast(msg: 'Not Found');
+        }
+      }
+      else {
+        Fluttertoast.showToast(msg: 'Network Error');
+      }
+    }
+    catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+        appBar:AppBar(backgroundColor:Colors.white,elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
           IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
               return notification_page();
@@ -41,7 +102,7 @@ class account_page extends StatelessWidget {
             return Home_Screen();
           }));
         }, icon:Icon(Icons.arrow_back,)),),
-        backgroundColor: const Color(0xFFE9FAF6),
+        backgroundColor:Colors.white,
         body:
         SingleChildScrollView(
           child: SafeArea(child:
@@ -56,7 +117,8 @@ class account_page extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(13),
                       child:
-                      Icon(Icons.account_circle,color:Colors.white,size:60,),
+                      CircleAvatar(radius: 50,
+                        backgroundImage: NetworkImage(photo_),),
                     ),
                   ),
 
@@ -74,13 +136,13 @@ class account_page extends StatelessWidget {
                             SizedBox(height: 13,),
                             Align(
                                 alignment:Alignment.topLeft,
-                                child: Text("Name",style:TextStyle(color:Colors.white),)),
+                                child: Text("$name_",style:TextStyle(color:Colors.white),)),
 
                             Divider(thickness:0.6,color:Colors.white,),
 
                             Align(
                                 alignment:Alignment.topLeft,
-                                child: Text("Email",style:TextStyle(color:Colors.white),)),
+                                child: Text("$email_",style:TextStyle(color:Colors.white),)),
 
                           ],
                         )
@@ -106,7 +168,7 @@ class account_page extends StatelessWidget {
                                 alignment:Alignment.topLeft,
                                 child: TextButton(onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                                    return profile_screen2();
+                                    return MyEdit();
                                   }));
 
                                 }, child:Text("Edit Profile Details",style:TextStyle(color:Colors.white,fontSize:14),)))

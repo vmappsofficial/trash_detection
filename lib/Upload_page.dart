@@ -92,7 +92,7 @@ class _Upload_pageState extends State<Upload_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+      appBar:AppBar(backgroundColor:Colors.white,elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return notification_page();
@@ -108,7 +108,7 @@ class _Upload_pageState extends State<Upload_page> {
           return Home_Screen();
         }));
       }, icon:Icon(Icons.arrow_back,)),),
-      backgroundColor:Color(0xFFE9FAF6) ,
+      backgroundColor:Colors.white,
       body:
       SafeArea(child:
       Padding(

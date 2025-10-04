@@ -124,10 +124,7 @@ class _MyEditPageState extends State<MyEditPage> {
     return WillPopScope(
       onWillPop: () async{ return true; },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ),
+        appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('Edit Profile',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black,fontSize: 19),),leading: BackButton()),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

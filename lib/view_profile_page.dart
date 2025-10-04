@@ -5,6 +5,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trashdetection/edit_profile.dart';
+import 'package:trashdetection/main.dart';
+
+import 'Account_page.dart';
+import 'Home_page.dart';
+import 'Notification_page.dart';
 void main(){
   
   runApp(MyApp());
@@ -34,66 +39,136 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        leading: BackButton( ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text('View Profile'),
-
-      ),
+      backgroundColor: Colors.white,
+      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('View profile',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black,fontSize: 19),),leading: BackButton()),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-
-
-            CircleAvatar(radius: 50,
-            backgroundImage: NetworkImage(photo_),),
-            Column(
-              children: [
-                // Image(image: NetworkImage(photo_), height: 200, width: 200,),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text("name:$name_"),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(dob_),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(gender_),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(email_),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(phone_),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(place_),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(state_),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(5),
-                  child: Text(pin_),
-                ),
-
-
-              ],
+            Container(
+              width: double.infinity,
+              height: 90,
+              color: Color(0xFFE9FAF6),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => MyEditPage(title: "Edit Profile"),));
-              },
-              child: Text("Edit Profile"),
+            Transform.translate(
+              offset: Offset(0,-54),
+              child: Align(
+                alignment: Alignment.center,
+                child: CircleAvatar(radius: 70,
+                backgroundImage: NetworkImage(photo_),),
+              ),
             ),
+
+            Transform.translate(
+              offset: Offset(0,-30),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Text("$name_",style: TextStyle(fontSize:19,fontWeight: FontWeight.bold),),
+                      Text("$email_",style: TextStyle(fontSize:16,),),
+                      Padding(
+                        padding: const EdgeInsets.all(27),
+                        child: Transform.translate(
+                          offset: Offset(0,-13),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:Colors.lightBlue,
+                                  foregroundColor: Colors.white,
+
+                                ),
+                                onPressed: (){
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) => MyEditPage(title: "Edit Profile"),));
+                                }, child:Text("Edit profile")),
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+            ),
+
+            Align(
+              alignment: Alignment.center,
+              child: Card(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text("Phone Number : ",style: TextStyle(fontSize:16),),
+                          Text("$phone_",style: TextStyle(fontSize:16,color: Colors.grey),)
+                        ],
+                      ),
+                      SizedBox(height: 13,),
+                      Row(
+                        children: [
+                          Text("Gender : ",style: TextStyle(fontSize:16),),
+                          Text("$gender_",style: TextStyle(fontSize:16,color: Colors.grey),)
+                        ],
+                      ),
+                      SizedBox(height: 13,),
+                      Row(
+                        children: [
+                          Text("DOB : ",style: TextStyle(fontSize:16),),
+                          Text("$dob_",style: TextStyle(fontSize:16,color: Colors.grey),)
+                        ],
+                      ),
+                      SizedBox(height: 13,),
+                      Row(
+                        children: [
+                          Text("State : ",style: TextStyle(fontSize:16),),
+                          Text("$state_",style: TextStyle(fontSize:16,color: Colors.grey),)
+                        ],
+                      )
+
+                    ],
+                  ),
+                )
+                ,
+              ),
+            ),
+            SizedBox(height: 13,),
+            Align(
+              alignment: Alignment.center,
+              child: Card(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text("Place : ",style: TextStyle(fontSize:16),),
+                          Text("$place_",style: TextStyle(fontSize:16,color: Colors.grey),)
+                        ],
+                      ),
+                      SizedBox(height: 13,),
+                      Row(
+                        children: [
+                          Text("Pincode : ",style: TextStyle(fontSize:16),),
+                          Text("$pin_",style: TextStyle(fontSize:16,color: Colors.grey),)
+                        ],
+                      ),
+                      SizedBox(height: 13,),
+                      Row(
+                        children: [
+                          Text("City : ",style: TextStyle(fontSize:16),),
+                          Text("$city_",style: TextStyle(fontSize:16,color: Colors.grey),)
+                        ],
+                      ),
+
+                    ],
+                  ),
+                )
+                ,
+              ),
+            ),
+
 
           ],
         ),
@@ -134,6 +209,7 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
           String email = jsonDecode(response.body)['email'].toString();
           String phone = jsonDecode(response.body)['phone'].toString();
           String place = jsonDecode(response.body)['place'].toString();
+          String city = jsonDecode(response.body)['city'].toString();
 
           String state = jsonDecode(response.body)['state'].toString();
           String pin = jsonDecode(response.body)['pin'].toString();
@@ -147,6 +223,7 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
             phone_ = phone;
             place_ = place;
             state_ = state;
+            city_=city;
             pin_ = pin;
             photo_ = photo;
           });

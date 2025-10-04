@@ -85,7 +85,7 @@ class _report_pageState extends State<report_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+      appBar:AppBar(backgroundColor:Colors.white,elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return notification_page();
@@ -99,46 +99,73 @@ class _report_pageState extends State<report_page> {
       ],leading:  IconButton(onPressed: (){
 
       }, icon:Icon(Icons.search,)),),
-      backgroundColor: const Color(0xFFE9FAF6),
+      backgroundColor:Colors.white,
       body: ListView.builder(
         // shrinkWrap: true,
         // physics: BouncingScrollPhysics(),
         itemCount: filteredUsers.length,
         itemBuilder: (context, index) {
           final user = filteredUsers[index];
-          return Card(
-            margin: const EdgeInsets.all(10),
-            elevation: 5,
-            child: ListTile(
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("date: ${user['date']}"),
-                  // Text("file: ${user['uploaded_file']}"),
-                  Image.network(user['uploaded_file']),
-                  SizedBox(height: 13,),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.lightBlue,
+          return Padding(
+            padding: const EdgeInsets.all(26),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(13),
+                gradient: LinearGradient(colors: [
+                  Color(0xFF00FFD1),
+                  Color(0xFF12FF00)
+                ])
+              ),
+              child: Card(
+                margin: const EdgeInsets.all(10),
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.all(13),
+                  child: ListTile(
+                    title: Container(
+                      width: 250,
+                      height: 250,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(image: NetworkImage(user['uploaded_file']),
+                              fit: BoxFit.cover
+                          ),
 
-                      )
-                      ,onPressed: () async {
+                          borderRadius: BorderRadius.circular(13)
+                      ),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 13,),
+                        Text("date: ${user['date']}"),
+                        // Text("file: ${user['uploaded_file']}"),
+
+                        SizedBox(height: 13,),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.lightBlue,
+
+                            )
+                            ,onPressed: () async {
 
 
-                    SharedPreferences sh= await SharedPreferences.getInstance();
-                    sh.setString("id", user['id'].toString());
-                    sh.setString("uploaded_file", user['uploaded_file'].toString());
-                    sh.setString("date", user['date'].toString());
+                          SharedPreferences sh= await SharedPreferences.getInstance();
+                          sh.setString("id", user['id'].toString());
+                          sh.setString("uploaded_file", user['uploaded_file'].toString());
+                          sh.setString("date", user['date'].toString());
 
-                    Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
-                      return report_screen(title: '${user['id']}',);
-                    }));
-
-
-                  }, child: Text("View report",style: TextStyle(color: Colors.white,fontSize: 11),))
+                          Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
+                            return report_screen(title: '${user['id']}',);
+                          }));
 
 
-                ],
+                        }, child: Text("View report",style: TextStyle(color: Colors.white,fontSize: 11),))
+
+
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           );

@@ -102,7 +102,7 @@ class _report_screenState extends State<report_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
+      appBar:AppBar(backgroundColor:Colors.white,elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
         IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
             return notification_page();
@@ -113,24 +113,32 @@ class _report_screenState extends State<report_screen> {
             return account_page();
           }));
         }, icon:Icon(Icons.account_circle))
-      ],leading:  IconButton(onPressed: (){
-
-      }, icon:Icon(Icons.search,)),),
-      backgroundColor: const Color(0xFFE9FAF6),
+      ],leading: BackButton()),
+      backgroundColor:Colors.white,
       body:
 
       Column(
         children: [
-          Text(Date1),
-      Expanded(
-        child: Container(
-          height: 200,
-          width: 400,
-          decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
-              image: DecorationImage(image:
-              NetworkImage(path),
-                  fit: BoxFit.cover
-              )
+
+      Padding(
+        padding: const EdgeInsets.all(9),
+        child: Card(
+          child:Padding(
+            padding: const EdgeInsets.all(13),
+            child: Container(
+              height: 300,
+              width: 300,
+              decoration: BoxDecoration(borderRadius:BorderRadius.circular(20),
+                  image: DecorationImage(image:
+                  NetworkImage(path),
+                      fit: BoxFit.cover
+                  )
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(13),
+                child: Text(Date1,style: TextStyle(color: Colors.white,fontSize:19,fontWeight: FontWeight.bold),),
+              ),
+            ),
           ),
         ),
       ),
@@ -148,22 +156,37 @@ class _report_screenState extends State<report_screen> {
             itemCount: filteredUsers.length,
             itemBuilder: (context, index) {
               final user = filteredUsers[index];
-              return Card(
-                margin: const EdgeInsets.all(10),
-                elevation: 5,
-                child: ListTile(
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("trash: ${user['trash']}"),
-                      // Text("file: ${user['uploaded_file']}"),
+              return ListTile(
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xFF03A6A0),
+                          borderRadius: BorderRadius.circular(13)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Text("TRASH : ",style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),),
+                                Text(" ${user['trash']}"),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Text("file: ${user['uploaded_file']}"),
 
-                      SizedBox(height: 13,),
+                    SizedBox(height: 13,),
 
 
 
-                    ],
-                  ),
+                  ],
                 ),
               );
             },

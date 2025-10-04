@@ -85,43 +85,82 @@ class _Home_page2State extends State<Home_page2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(backgroundColor: Color(0xFFE9FAF6),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
-        IconButton(onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-            return notification_page();
-          }));
-        }, icon:Icon(Icons.notifications)),
-        IconButton(onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-            return account_page();
-          }));
-        }, icon:Icon(Icons.account_circle))
-      ],leading:  IconButton(onPressed: (){
+      // appBar:AppBar(backgroundColor: Color(0xFF3C3C6C),elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.white),),actions: [
+      //   IconButton(onPressed: (){
+      //     Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+      //       return notification_page();
+      //     }));
+      //   }, icon:Icon(Icons.notifications,color: Colors.white,)),
 
-      }, icon:Icon(Icons.search,)),),
-      backgroundColor: const Color(0xFFE9FAF6),
+      // ],),
+      backgroundColor:Colors.white,
       body:
       SafeArea(child:
       SingleChildScrollView(
         child:
-        Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: [
-              Container(
-                width:double.infinity,
-                height:300,
-                decoration:
-                BoxDecoration(
-                    image:DecorationImage(image:
-                    AssetImage('Sea_image3.jpg'),
-                    )
-                ),
+        Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 160,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Color(0xFF3C3C6C),
+                  Color(0xFF7070A5),
+
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter)
               ),
-              Align(
-                alignment:Alignment.center,
-                child:
-                Column(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child:
+                    IconButton(onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+                        return account_page();
+                      }));
+                    }, icon:Icon(Icons.account_circle,color: Colors.white,))
+
+                    ,
+                  ),
+                  Transform.translate(
+                    offset: Offset(31,0),
+                    child: Column(
+                      children: [
+                        Text("OCEAN TRASH DETECTION & CONSERVATION",style: TextStyle(fontSize:19,fontWeight: FontWeight.bold,color: Colors.white),),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Text("Upload an image to detect underwater trash",style: TextStyle(fontSize:13,color: Colors.white),)),
+                      ],
+                    ),
+                  )
+
+                ],
+              ),
+            ),
+            Transform.translate(
+              offset: Offset(0,-19),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightBlue,
+                    foregroundColor: Colors.white
+                  ),
+                  onPressed: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
+                      return Upload_page();
+                    }));
+
+                  }, child:Text("Detect New Trash")),
+            ),
+
+            Align(
+              alignment:Alignment.center,
+              child:
+              Padding(
+                padding: const EdgeInsets.all(13),
+                child: Column(
                   children: [
                     Text("Detect Trash Save",style:TextStyle(color:Colors.black,fontSize:18,fontWeight:FontWeight.bold,),),
                     Text("Oceans",style:TextStyle(color:Colors.black,fontSize:18,fontWeight:FontWeight.bold),),
@@ -131,100 +170,64 @@ class _Home_page2State extends State<Home_page2> {
                   ],
                 ),
               ),
-              SizedBox(height:13,),
-              SizedBox(
-                width:double.infinity,
-                child: ElevatedButton(onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
-                    return Upload_page();
-                  }));
-                },style:ElevatedButton.styleFrom(
-                    backgroundColor:Colors.blue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)
-                    )
-                ),child:Text('Upload Image',style:TextStyle(color: Colors.white,fontSize:18,fontWeight:FontWeight.bold),)),
+            ),
+            SizedBox(height: 30,),
+            Padding(
+              padding: const EdgeInsets.all(13),
+              child: Align(alignment: Alignment.topLeft,
+              child: Text("Recent Scans",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
               ),
-              SizedBox(height:30,),
-              Align(
-                alignment:Alignment.topLeft,
-                child:
-                Text('Recent Scans',style:TextStyle(fontSize:18,color:Colors.black,fontWeight:FontWeight.bold),)
-                ,
-              ),
-              SizedBox(height:13,),
-
-              Container(
-                height: 250,
-                child: Expanded(child:
-
-                ListView.builder(
+            ),
+            Padding(padding: EdgeInsets.all(13),
+              child:
+              ListView.builder(
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
                   itemCount: filteredUsers.length,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (context,index){
                     final user = filteredUsers[index];
                     return Card(
-                      margin: const EdgeInsets.all(10),
-                      elevation: 5,
-                      child: ListTile(
-                      subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("date: ${user['date']}"),
-                            // Text("file: ${user['uploaded_file']}"),
-                            Image.network(user['uploaded_file']),
-                            SizedBox(height: 13,),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.lightBlue,
+                      child:
+                      Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: ListTile(
+                          leading: Image.network(user['uploaded_file'],),
+                          title:Text("Trash detection reports",style: TextStyle(fontSize:13),),
+                          subtitle: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text("Date : ",style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),),
 
-                                )
-                                ,onPressed: () async {
+                                  Text(user['date'].toString(),style: TextStyle(fontSize: 13),),
 
+                                ],
+                              ),
+                              TextButton(onPressed: () async{
+                                SharedPreferences sh= await SharedPreferences.getInstance();
+                                sh.setString("id", user['id'].toString());
+                                sh.setString("uploaded_file", user['uploaded_file'].toString());
+                                sh.setString("date", user['date'].toString());
+                                Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
+                                  return report_screen(title: '${user['id']}',);
+                                }));
+                              }, child:Text("View reports",style: TextStyle(color: Colors.lightBlue),))
 
-                                  SharedPreferences sh= await SharedPreferences.getInstance();
-                                  sh.setString("id", user['id'].toString());
-                                  sh.setString("uploaded_file", user['uploaded_file'].toString());
-                                  sh.setString("date", user['date'].toString());
+                            ],
+                          ),
 
-                              Navigator.of(context).push(MaterialPageRoute(builder:(ctx){
-                                return report_screen(title: '${user['id']}',);
-                              }));
-
-
-                            }, child: Text("View report",style: TextStyle(color: Colors.white,fontSize: 11),))
-
-
-                          ],
                         ),
                       ),
                     );
-                  },
-                ),
+
+                  })
+              ,
+            ),
 
 
 
 
-                ),
-              ),
-              // Align(
-              //     alignment:Alignment.topLeft,
-              //     child: Image.asset("plastic_image1.jpg",height:160)),
-
-              // Align(
-              //   alignment:Alignment.topLeft,
-              //   child:
-              //   TextButton(onPressed: (){
-              //     Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-              //       return report_screen();
-              //     }));
-              //   }, child:Text("View Report")),
-              // )
-
-
-            ],
-          ),
+          ],
         ),
       )
       ),
