@@ -39,6 +39,9 @@ dependencies:
   shared_preferences: ^2.5.3
   http: ^1.5.0
   fluttertoast: ^8.2.12
+  animate_do: ^3.3.4
+  google_fonts: ^6.2.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +71,7 @@ flutter:
   - Sea_image2.jpg
   - Sea_image3.jpg
   - plastic_image1.jpg
+  - water_image2.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
