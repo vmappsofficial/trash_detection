@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trashdetection/Notification_page.dart';
 import 'package:trashdetection/login.dart';
 import 'package:trashdetection/password_page2.dart';
+import 'package:trashdetection/user_review.dart';
+import 'package:trashdetection/user_view_review.dart';
 import 'package:trashdetection/view_profile_page.dart';
 
 import 'Home_page.dart';
@@ -274,9 +276,9 @@ class _account_pageState extends State<account_page> {
                                 alignment:Alignment.topLeft,
                                 child: TextButton(onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                                    return report_screen2();
+                                    return user_view_review(title: '');
                                   }));
-                                }, child:Text("Pending Reports",style:TextStyle(color:Colors.white,fontSize:14),)))
+                                }, child:Text("Review",style:TextStyle(color:Colors.white,fontSize:14),)))
                             ,
                           ),
                           Divider(thickness:0.5,color:Colors.white,),
