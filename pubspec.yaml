@@ -43,7 +43,8 @@ dependencies:
   google_fonts: ^6.2.1
   shimmer: ^3.0.0
   animations: ^2.1.0
-
+  geolocator: ^14.0.2
+ 
 dev_dependencies:
   flutter_test:
     sdk: flutter

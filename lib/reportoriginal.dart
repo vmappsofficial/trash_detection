@@ -124,7 +124,7 @@ class _report_pageState extends State<report_page> with SingleTickerProviderStat
           IconButton(
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (ctx) => const notification_page()),
+                MaterialPageRoute(builder: (ctx) => const notification_page(title: '',)),
               );
             },
             icon: const Icon(Icons.notifications, color: Colors.black),

@@ -275,7 +275,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           IconButton(
               icon: const Icon(Icons.notifications),
               onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const notification_page()))),
+                  MaterialPageRoute(builder: (_) => const notification_page(title:'',)))),
           IconButton(
               icon: const Icon(Icons.account_circle),
               onPressed: () => Navigator.push(

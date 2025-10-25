@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trashdetection/Notification_page.dart';
+import 'package:trashdetection/issue_report.dart';
 import 'package:trashdetection/login.dart';
 import 'package:trashdetection/password_page2.dart';
 import 'package:trashdetection/user_review.dart';
@@ -91,7 +92,7 @@ class _account_pageState extends State<account_page> {
         appBar:AppBar(backgroundColor:Colors.white,elevation: 0,centerTitle: true,title: Text('AQUA AI',style:TextStyle(fontWeight: FontWeight.bold,color:Colors.black),),actions: [
           IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-              return notification_page();
+              return notification_page(title: '',);
             }));
           }, icon:Icon(Icons.notifications)),
           IconButton(onPressed: (){
@@ -229,7 +230,7 @@ class _account_pageState extends State<account_page> {
                                 alignment:Alignment.topLeft,
                                 child: TextButton(onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                                    return Screen3();
+                                    return issue_report_page();
                                   }));
                                 }, child:Text("Report an issue",style:TextStyle(color:Colors.white,fontSize:14),)))
                             ,
@@ -258,7 +259,7 @@ class _account_pageState extends State<account_page> {
                                 alignment:Alignment.topLeft,
                                 child: TextButton(onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                                    return notification_page();
+                                    return notification_page(title: '',);
                                   }));
                                 }, child:Text("Notifications",style:TextStyle(color:Colors.white,fontSize:14),)))
                             ,

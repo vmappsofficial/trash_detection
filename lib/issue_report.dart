@@ -7,24 +7,71 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'Account_page.dart';
 import 'Notification_page.dart';
 import 'Home_page.dart';
 import 'Report_page.dart';
 
-class Upload_page extends StatefulWidget {
-  const Upload_page({super.key});
+class issue_report_page extends StatefulWidget {
+  const issue_report_page({super.key});
 
   @override
-  State<Upload_page> createState() => _Upload_pageState();
+  State<issue_report_page> createState() => _issue_report_pageState();
 }
 
-class _Upload_pageState extends State<Upload_page> with SingleTickerProviderStateMixin {
+class _issue_report_pageState extends State<issue_report_page> with SingleTickerProviderStateMixin {
   File? _selectedImage;
+  final ImagePicker _picker = ImagePicker();
+  final TextEditingController descriptionController = TextEditingController();
+  double? latitude;
+  double? longitude;
 
+  @override
+  void initState() {
+    super.initState();
+    _getLocation(); // Fetch location when the page loads
+  }
+
+  // Get current location
+  Future<void> _getLocation() async {
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        Fluttertoast.showToast(msg: "Location services are disabled.");
+        return;
+      }
+
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          Fluttertoast.showToast(msg: "Location permission denied");
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        Fluttertoast.showToast(msg: "Location permissions are permanently denied");
+        return;
+      }
+
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+
+      setState(() {
+        latitude = position.latitude;
+        longitude = position.longitude;
+      });
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Error getting location: $e");
+    }
+  }
+
+  // Pick image from gallery
   Future<void> _chooseImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _selectedImage = File(pickedFile.path);
@@ -34,23 +81,41 @@ class _Upload_pageState extends State<Upload_page> with SingleTickerProviderStat
     }
   }
 
+  // Send data to backend
   Future<void> _sendData() async {
-    SharedPreferences sh = await SharedPreferences.getInstance();
-    String? url = sh.getString('url');
-    String id = sh.getString('lid') ?? '';
-
-    if (url == null) {
-      Fluttertoast.showToast(msg: "Server URL not found.");
+    if (_selectedImage == null) {
+      Fluttertoast.showToast(msg: "Please select an image");
+      return;
+    }
+    if (descriptionController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please enter a description");
+      return;
+    }
+    if (latitude == null || longitude == null) {
+      Fluttertoast.showToast(msg: "Location data not available");
       return;
     }
 
-    final uri = Uri.parse('$url/upload_image/');
-    var request = http.MultipartRequest('POST', uri);
-    request.fields['id'] = id;
+    SharedPreferences sh = await SharedPreferences.getInstance();
+    String? url = sh.getString('url');
+    String? lid = sh.getString('lid');
 
-    if (_selectedImage != null) {
-      request.files.add(await http.MultipartFile.fromPath('photo', _selectedImage!.path));
+    if (url == null || lid == null) {
+      Fluttertoast.showToast(msg: "Server URL or Login ID not found.");
+      return;
     }
+
+    final uri = Uri.parse('$url/report_issue/');
+    var request = http.MultipartRequest('POST', uri);
+
+    // Add fields
+    request.fields['lid'] = lid;
+    request.fields['latitude'] = latitude!.toString();
+    request.fields['longitude'] = longitude!.toString();
+    request.fields['description'] = descriptionController.text;
+
+    // Add image
+    request.files.add(await http.MultipartFile.fromPath('photo', _selectedImage!.path));
 
     try {
       var response = await request.send();
@@ -60,14 +125,22 @@ class _Upload_pageState extends State<Upload_page> with SingleTickerProviderStat
       if (response.statusCode == 200 && data['status'] == 'ok') {
         Fluttertoast.showToast(msg: "Submitted successfully.");
         setState(() {
-          _selectedImage = null; // Clear image after successful upload
+          _selectedImage = null;
+          descriptionController.clear();
         });
+        Navigator.pop(context); // Return to previous screen
       } else {
-        Fluttertoast.showToast(msg: "Submission failed.");
+        Fluttertoast.showToast(msg: data['message'] ?? "Submission failed.");
       }
     } catch (e) {
       Fluttertoast.showToast(msg: "Error: $e");
     }
+  }
+
+  @override
+  void dispose() {
+    descriptionController.dispose();
+    super.dispose();
   }
 
   @override
@@ -123,7 +196,7 @@ class _Upload_pageState extends State<Upload_page> with SingleTickerProviderStat
                               IconButton(
                                 onPressed: () {
                                   Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (ctx) => const notification_page(title:'',)),
+                                    MaterialPageRoute(builder: (ctx) => const notification_page(title: '')),
                                   );
                                 },
                                 icon: const Icon(Icons.notifications, color: Colors.white),
@@ -170,7 +243,7 @@ class _Upload_pageState extends State<Upload_page> with SingleTickerProviderStat
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "Upload Underwater Image",
+                                "Report an Issue",
                                 style: GoogleFonts.poppins(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -233,6 +306,78 @@ class _Upload_pageState extends State<Upload_page> with SingleTickerProviderStat
                                 style: GoogleFonts.poppins(
                                   color: const Color(0xFF757575),
                                   fontSize: 12,
+                                ),
+                              ),
+                              const SizedBox(height: 13),
+                              TextFormField(
+                                controller: TextEditingController(text: latitude?.toString() ?? ''),
+                                readOnly: true,
+                                style: const TextStyle(color: Colors.black87),
+                                decoration: InputDecoration(
+                                  labelText: 'Latitude',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(color: Color(0xFF004949), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(color: Color(0xFF004949), width: 2),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                ),
+                              ),
+                              const SizedBox(height: 13),
+                              TextFormField(
+                                controller: TextEditingController(text: longitude?.toString() ?? ''),
+                                readOnly: true,
+                                style: const TextStyle(color: Colors.black87),
+                                decoration: InputDecoration(
+                                  labelText: 'Longitude',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(color: Color(0xFF004949), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(color: Color(0xFF004949), width: 2),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                ),
+                              ),
+                              const SizedBox(height: 13),
+                              TextFormField(
+                                controller: descriptionController,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                style: const TextStyle(color: Colors.black87),
+                                decoration: InputDecoration(
+                                  labelText: 'Description',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(color: Color(0xFF004949), width: 1),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(color: Color(0xFF004949), width: 2),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                                 ),
                               ),
                             ],
