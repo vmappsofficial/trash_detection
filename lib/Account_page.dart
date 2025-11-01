@@ -9,6 +9,7 @@ import 'package:trashdetection/issue_report.dart';
 import 'package:trashdetection/login.dart';
 import 'package:trashdetection/password_page2.dart';
 import 'package:trashdetection/user_review.dart';
+import 'package:trashdetection/user_view_issue.dart';
 import 'package:trashdetection/user_view_review.dart';
 import 'package:trashdetection/view_profile_page.dart';
 
@@ -214,6 +215,25 @@ class _account_pageState extends State<account_page> {
                                     return ChangePassword();
                                   }));
                                 }, child:Text("Change Password",style:TextStyle(color:Colors.white,fontSize:14),)))
+                            ,
+                          ),
+                          Divider(
+                            thickness:0.5,
+                            color:Colors.white,
+                          ),
+                          Container(
+                            width:double.infinity,
+                            color:
+                            Color(0xFF456885),
+
+                            child:
+                            Align(
+                                alignment:Alignment.topLeft,
+                                child: TextButton(onPressed: (){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
+                                    return view_issue(title: '');
+                                  }));
+                                }, child:Text("View Issue",style:TextStyle(color:Colors.white,fontSize:14),)))
                             ,
                           ),
                           Divider(
