@@ -81,7 +81,7 @@ class _ViewProfilePageState extends State<ViewProfilePage> {
                                 ),
                                 onPressed: (){
                                   Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => MyEditPage(title: "Edit Profile"),));
+                                    builder: (context) => EditProfilePage(),));
                                 }, child:Text("Edit profile")),
                           ),
                         ),

@@ -172,7 +172,7 @@ class _account_pageState extends State<account_page> {
                                 alignment:Alignment.topLeft,
                                 child: TextButton(onPressed: (){
                                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx){
-                                    return MyEdit();
+                                    return EditProfilePage();
                                   }));
 
                                 }, child:Text("Edit Profile Details",style:TextStyle(color:Colors.white,fontSize:14),)))

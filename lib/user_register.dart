@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trashdetection/ip_page.dart';
+import 'package:trashdetection/login.dart';
 
 void main() {
   runApp(const UserRegisterApp());
@@ -47,7 +48,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _dobController = TextEditingController();
+  final _dobController = TextEditingController(); // Still used to display formatted date
   final _placeController = TextEditingController();
   final _cityController = TextEditingController();
   final _stateController = TextEditingController();
@@ -65,6 +66,8 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+
+  DateTime? _selectedDate; // To store the actual selected date
 
   @override
   void initState() {
@@ -130,9 +133,8 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
 
   String? _validateDOB(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your date of birth';
+      return 'Please select your date of birth';
     }
-    // Simple validation; can be enhanced with date parsing
     return null;
   }
 
@@ -186,6 +188,39 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
       }
     } catch (e) {
       _showSnackBar('Error picking image: $e');
+    }
+  }
+
+  // Date Picker Method
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now().subtract(const Duration(days: 365 * 18)), // Default: 18 years ago
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xFF004949),
+              onPrimary: Colors.white,
+              surface: Colors.white,
+              onSurface: Colors.black87,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(foregroundColor: const Color(0xFF004949)),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        _dobController.text = "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+      });
     }
   }
 
@@ -274,7 +309,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
       if (streamedResponse.statusCode == 200 && data?['status'] == 'ok') {
         _showSnackBar('Registration successful! Welcome aboard.');
         // Navigate to login or home
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => login_page()));
       } else {
         final serverMsg = data?['message'] ?? 'Registration failed. Please try again.';
         _showError(serverMsg);
@@ -510,16 +545,19 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                              // DOB Field
+                              // DOB Field - Now with DatePicker
                               TextFormField(
                                 controller: _dobController,
-                                keyboardType: TextInputType.datetime,
+                                readOnly: true, // Prevents keyboard
+                                onTap: () => _selectDate(context),
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: _validateDOB,
                                 style: const TextStyle(color: Colors.black87),
                                 decoration: InputDecoration(
                                   labelText: 'Date of Birth (YYYY-MM-DD)',
+                                  hintText: 'Tap to select date',
                                   prefixIcon: const Icon(Icons.cake_outlined, color: Color(0xFF004949)),
+                                  suffixIcon: const Icon(Icons.calendar_today_rounded, color: Color(0xFF004949)),
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
@@ -820,6 +858,5 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
         ),
       ),
     );
-  
   }
 }

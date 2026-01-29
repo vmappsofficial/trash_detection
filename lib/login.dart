@@ -362,10 +362,10 @@ class _login_pageState extends State<login_page> with TickerProviderStateMixin {
                               alignment: Alignment.centerRight,
                               child: TextButton(
                                 onPressed: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(builder: (context) => const password_reset_page()),
-                                  // );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const password_reset_page()),
+                                  );
                                 },
                                 child: const Text(
                                   'Forgot Password?',
